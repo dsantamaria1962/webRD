@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RD Global Trade — Droguería | Importadora de Productos Especiales</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* === RESET & VARIABLES === */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #0b1e3d;
+      --navy-deep: #061229;
+      --royal: #1a5fa8;
+      --royal-light: #2878cc;
+      --sky: #5bb8f5;
+      --cyan: #8ed4fc;
+      --ice: #d4efff;
+      --gold: #d4a843;
+      --gold-light: #f0cc6b;
+      --warm: #fdf6e3;
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-400: #94a3b8;
+      --gray-600: #475569;
+      --gray-800: #1e293b;
+      --font-body: 'DM Sans', sans-serif;
+      --font-display: 'Playfair Display', serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--gray-800);
+      background: var(--white);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* === NAVBAR === */
+    .navbar {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      padding: 1rem 2rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(16px);
+    }
+    .navbar.scrolled {
+      background: rgba(255,255,255,0.97);
+      padding: 0.6rem 2rem;
+      box-shadow: 0 2px 20px rgba(11,30,61,0.06);
+    }
+    .navbar-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-logo img { height: 42px; width: auto; }
+    .nav-logo span {
+      font-family: var(--font-display);
+      font-size: 1.1rem; font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 0.02em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--gray-600); font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.03em; text-transform: uppercase;
+      position: relative; padding-bottom: 2px;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0;
+      width: 0; height: 2px; background: var(--royal);
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .nav-links a:hover { color: var(--royal); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .nav-toggle span { width: 24px; height: 2px; background: var(--navy); border-radius: 2px; transition: 0.3s; }
+
+    /* === HERO === */
+    .hero {
+      min-height: 100vh; position: relative;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(170deg, #ffffff 0%, #f0f7ff 50%, #e8f2fc 100%);
+      overflow: hidden;
+    }
+    .hero-bg-orbs {
+      position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+    }
+    .hero-bg-orbs .orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(100px); opacity: 0.25;
+    }
+    .hero-bg-orbs .orb:nth-child(1) {
+      width: 500px; height: 500px; background: var(--ice);
+      top: -15%; right: -5%;
+      animation: float1 20s ease-in-out infinite;
+    }
+    .hero-bg-orbs .orb:nth-child(2) {
+      width: 350px; height: 350px; background: var(--cyan);
+      bottom: 10%; left: 5%;
+      animation: float2 25s ease-in-out infinite;
+      opacity: 0.18;
+    }
+    .hero-bg-orbs .orb:nth-child(3) {
+      width: 250px; height: 250px; background: var(--gold-light);
+      top: 25%; left: 55%;
+      animation: float3 18s ease-in-out infinite;
+      opacity: 0.12;
+    }
+    @keyframes float1 { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(-40px, 30px); } }
+    @keyframes float2 { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(30px, -40px); } }
+    @keyframes float3 { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(-20px, -30px); } }
+
+    .hero-grid-overlay {
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(26,95,168,0.04) 1px, transparent 0);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center; padding: 2rem;
+      max-width: 900px;
+    }
+    .hero-logo {
+      width: 180px; height: 180px; margin: 0 auto 2.5rem;
+      animation: fadeInDown 1s ease-out 0.2s both;
+    }
+    .hero-logo img {
+      width: 100%; height: 100%; object-fit: contain;
+      filter: drop-shadow(0 4px 20px rgba(26, 95, 168, 0.12));
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 700; color: var(--navy);
+      line-height: 1.15; margin-bottom: 1.5rem;
+      animation: fadeInUp 1s ease-out 0.5s both;
+    }
+    .hero h1 .accent { color: var(--royal); }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--gray-600);
+      max-width: 650px; margin: 0 auto 2.5rem;
+      line-height: 1.8;
+      animation: fadeInUp 1s ease-out 0.7s both;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.9rem 2.2rem;
+      background: linear-gradient(135deg, var(--royal), var(--royal-light));
+      color: var(--white); font-weight: 600;
+      border-radius: 50px; font-size: 0.95rem;
+      letter-spacing: 0.03em;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 20px rgba(26, 95, 168, 0.2);
+      animation: fadeInUp 1s ease-out 0.9s both;
+    }
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(26, 95, 168, 0.3);
+    }
+    .hero-cta svg { width: 18px; height: 18px; }
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s ease-in-out infinite 2s;
+    }
+    .hero-scroll svg { width: 28px; height: 28px; color: var(--gray-400); }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
+
+    /* === SECTION COMMON === */
+    section { padding: 6rem 2rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.15em; color: var(--royal);
+      margin-bottom: 1rem;
+    }
+    .section-label::before {
+      content: ''; width: 30px; height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--royal));
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700; color: var(--navy);
+      line-height: 1.2; margin-bottom: 1.5rem;
+    }
+
+    /* === QUIENES SOMOS === */
+    .about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    .about-text p {
+      color: var(--gray-600); font-size: 1.05rem;
+      margin-bottom: 1.5rem; line-height: 1.85;
+    }
+    .about-visual {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-card {
+      background: var(--white);
+      border-radius: 20px; padding: 2.5rem;
+      box-shadow: 0 20px 60px rgba(11, 30, 61, 0.08);
+      border: 1px solid var(--gray-200);
+      position: relative; overflow: hidden;
+    }
+    .about-card::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 100%; height: 4px;
+      background: linear-gradient(90deg, var(--royal), var(--sky), var(--gold));
+    }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    }
+    .stat { text-align: center; padding: 1rem; }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.2rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--royal), var(--sky));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-size: 0.85rem; color: var(--gray-400); margin-top: 0.3rem; font-weight: 500; }
+
+    /* === AREA MEDICA === */
+    .medical { background: #fafcff; }
+    .medical-intro {
+      max-width: 700px; color: var(--gray-600);
+      font-size: 1.05rem; line-height: 1.85;
+      margin-bottom: 3rem;
+    }
+    .products-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .product-card {
+      background: var(--gray-50);
+      border-radius: 16px; padding: 2rem;
+      border: 1px solid var(--gray-200);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative; overflow: hidden;
+    }
+    .product-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--royal), var(--sky));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(11, 30, 61, 0.1);
+      border-color: var(--ice);
+    }
+    .product-card:hover::after { transform: scaleX(1); }
+    .product-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--sky), var(--cyan));
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+    .product-icon svg { width: 26px; height: 26px; color: var(--white); }
+    .product-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 0.6rem;
+    }
+    .product-card p {
+      font-size: 0.92rem; color: var(--gray-600); line-height: 1.7;
+    }
+
+    /* === CERTIFICATIONS === */
+    .certs {
+      background: linear-gradient(170deg, #f0f7ff 0%, #ffffff 100%);
+      color: var(--gray-800);
+    }
+    .certs .section-label { color: var(--royal); }
+    .certs .section-label::before { background: linear-gradient(90deg, var(--gold), var(--royal)); }
+    .certs .section-title { color: var(--navy); }
+    .certs-intro {
+      color: var(--gray-600); font-size: 1.05rem;
+      max-width: 650px; margin-bottom: 3rem; line-height: 1.85;
+    }
+    .certs-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+    .cert-item {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 16px; padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+      box-shadow: 0 2px 12px rgba(11,30,61,0.04);
+    }
+    .cert-item:hover {
+      border-color: var(--ice);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(11,30,61,0.08);
+    }
+    .cert-badge {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--royal), var(--sky));
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    .cert-badge svg { width: 28px; height: 28px; color: var(--white); }
+    .cert-item h4 {
+      font-size: 1rem; font-weight: 600;
+      margin-bottom: 0.3rem; color: var(--navy);
+    }
+    .cert-item p { font-size: 0.85rem; color: var(--gray-400); }
+
+    /* === EQUIPO === */
+    .team { background: #f8fbff; }
+    .team-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem; margin-bottom: 3rem;
+    }
+    .team-card {
+      background: var(--white);
+      border-radius: 16px; padding: 2rem;
+      border: 1px solid var(--gray-200);
+      display: flex; align-items: flex-start; gap: 1.2rem;
+      transition: all 0.3s;
+    }
+    .team-card:hover {
+      box-shadow: 0 12px 40px rgba(11, 30, 61, 0.08);
+      transform: translateY(-2px);
+    }
+    .team-avatar {
+      width: 56px; height: 56px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--royal), var(--sky));
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .team-avatar span {
+      color: var(--white); font-weight: 700; font-size: 1.1rem;
+      font-family: var(--font-display);
+    }
+    .team-info h4 {
+      font-size: 1rem; font-weight: 600; color: var(--navy);
+      margin-bottom: 0.2rem;
+    }
+    .team-info .role {
+      font-size: 0.82rem; color: var(--royal); font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+    .team-info .email {
+      font-size: 0.88rem; color: var(--gray-600);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .team-info .email svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    .asesores-section { margin-top: 2rem; }
+    .asesores-section h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 1.5rem;
+    }
+    .asesores-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .asesor-card {
+      background: var(--white);
+      border-radius: 16px; padding: 1.8rem;
+      border: 1px solid var(--gray-200);
+      border-left: 4px solid var(--gold);
+      transition: all 0.3s;
+    }
+    .asesor-card:hover {
+      box-shadow: 0 12px 40px rgba(11, 30, 61, 0.08);
+    }
+    .asesor-card h4 { font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.3rem; }
+    .asesor-card p { font-size: 0.9rem; color: var(--gray-600); line-height: 1.6; }
+
+    /* === CONTACTO === */
+    .contact {
+      background: var(--white);
+      border-top: 1px solid var(--gray-200);
+    }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+    }
+    .contact-info p {
+      color: var(--gray-600); font-size: 1.05rem;
+      line-height: 1.85; margin-bottom: 2rem;
+    }
+    .contact-detail {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .contact-detail-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--ice); display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .contact-detail-icon svg { width: 20px; height: 20px; color: var(--royal); }
+    .contact-detail div { font-size: 0.95rem; color: var(--gray-600); }
+    .contact-detail strong { color: var(--navy); font-weight: 600; display: block; margin-bottom: 0.1rem; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label {
+      font-size: 0.85rem; font-weight: 600; color: var(--navy);
+      letter-spacing: 0.02em;
+    }
+    .form-group input, .form-group textarea {
+      padding: 0.85rem 1rem;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 12px; font-family: var(--font-body);
+      font-size: 0.95rem; color: var(--gray-800);
+      transition: border-color 0.3s, box-shadow 0.3s;
+      background: var(--gray-50);
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--royal);
+      box-shadow: 0 0 0 4px rgba(26, 95, 168, 0.1);
+      background: var(--white);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-submit {
+      padding: 0.9rem 2rem;
+      background: linear-gradient(135deg, var(--royal), var(--royal-light));
+      color: var(--white); font-weight: 600; font-size: 0.95rem;
+      border: none; border-radius: 12px; cursor: pointer;
+      font-family: var(--font-body);
+      transition: all 0.3s;
+      box-shadow: 0 4px 16px rgba(26, 95, 168, 0.25);
+    }
+    .form-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(26, 95, 168, 0.35);
+    }
+
+    /* === FOOTER === */
+    .footer {
+      background: var(--gray-50); color: var(--gray-400);
+      padding: 3rem 2rem 2rem; text-align: center;
+      border-top: 1px solid var(--gray-200);
+    }
+    .footer-logo { height: 50px; margin: 0 auto 1rem; opacity: 0.8; }
+    .footer p { font-size: 0.85rem; line-height: 1.7; }
+    .footer-divider {
+      width: 60px; height: 2px; margin: 1.5rem auto;
+      background: linear-gradient(90deg, transparent, var(--royal), transparent);
+    }
+
+    /* === SCROLL ANIMATIONS === */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.visible {
+      opacity: 1; transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 100%; left: 0; width: 100%;
+        background: rgba(255,255,255,0.98);
+        padding: 1.5rem 2rem; gap: 1.2rem;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      }
+      .nav-toggle { display: flex; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .form-row { grid-template-columns: 1fr; }
+      section { padding: 4rem 1.5rem; }
+      .hero-logo { width: 120px; height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="#" class="nav-logo">
+        <img src="logo.png" alt="RD Global Trade">
+        <span>RD Global Trade</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#medica">Área Médica</a></li>
+        <li><a href="#certificaciones">Certificaciones</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg-orbs">
+      <div class="orb"></div><div class="orb"></div><div class="orb"></div>
+    </div>
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-logo">
+        <img src="logo.png" alt="RD Global Trade Logo">
+      </div>
+      <h1>Lo que <span class="accent">no encuentras</span> en el mercado, lo traemos para ti</h1>
+      <p>Somos una importadora peruana que busca las mejores tendencias y tecnologías del mundo para acercarlas al Perú y la región. Productos especiales, soluciones distintivas.</p>
+      <a href="#medica" class="hero-cta">
+        Conozca nuestros productos
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-scroll">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- QUIENES SOMOS -->
+  <section class="about" id="nosotros">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <div class="section-label">Quiénes Somos</div>
+          <h2 class="section-title">Capitales peruanos, alcance global</h2>
+          <p>RD Global Trade es una empresa de capitales peruanos con varias áreas de importación. Nos especializamos en productos especiales y distintivos — esos que no se encuentran fácilmente en el mercado peruano. Nuestro trabajo es acercar las nuevas tendencias y tecnologías mundiales al Perú y a la región.</p>
+          <p>Contamos con especialistas en cada área y alianzas estratégicas sólidas para la importación, distribución y comercialización de cada producto.</p>
+        </div>
+        <div class="about-visual reveal reveal-delay-2">
+          <div class="about-card">
+            <div class="about-stats">
+              <div class="stat">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Capital peruano</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number">Multi</div>
+                <div class="stat-label">Áreas de importación</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number">BPA</div>
+                <div class="stat-label">Buenas Prácticas</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number">ISO</div>
+                <div class="stat-label">9000 en proceso</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AREA MEDICA -->
+  <section class="medical" id="medica">
+    <div class="section-inner">
+      <div class="section-label reveal">Área Médica</div>
+      <h2 class="section-title reveal">Nuestro catálogo médico</h2>
+      <p class="medical-intro reveal">En nuestra área médica trabajamos con productos especializados que cumplen con los más altos estándares de calidad. Estos son algunos de los que hoy distribuimos.</p>
+      <div class="products-grid">
+        <div class="product-card reveal reveal-delay-1">
+          <div class="product-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 2 4 4"/><path d="m17 7-1.4-1.4"/><path d="M8.2 9.7 3 15l4 4 5.3-5.2"/><path d="M14 4 3 15"/><circle cx="20" cy="4" r="2"/><path d="m12.2 6.2.4-.4"/><path d="m5 19 3 3"/><path d="m14.8 11.4 1.8-1.8"/></svg>
+          </div>
+          <h3>Agujas PIC</h3>
+          <p>Agujas de alta precisión y calidad para aplicaciones médicas especializadas, marca líder en el mercado internacional.</p>
+        </div>
+        <div class="product-card reveal reveal-delay-2">
+          <div class="product-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="7"/><path d="M12 6v4"/><circle cx="12" cy="14" r="2"/></svg>
+          </div>
+          <h3>Parches para Sensores de Glucosa</h3>
+          <p>Parches protectores diseñados para resguardar los sensores de monitoreo continuo de glucosa, brindando seguridad y comodidad al paciente.</p>
+        </div>
+        <div class="product-card reveal reveal-delay-3">
+          <div class="product-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6l-2 7h5L8 22l2-9H5z"/></svg>
+          </div>
+          <h3>Cartucheras con Gel de Autoenfriamiento</h3>
+          <p>Cartucheras portalápices con tecnología innovadora de gel de autoenfriamiento, un producto único en el mercado.</p>
+        </div>
+        <div class="product-card reveal reveal-delay-1">
+          <div class="product-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <h3>Geles y Caramelos de Glucosa</h3>
+          <p>Soluciones rápidas y prácticas para el manejo de niveles de glucosa, ideales para personas con diabetes y deportistas.</p>
+        </div>
+        <div class="product-card reveal reveal-delay-2">
+          <div class="product-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v6a6 6 0 0 0 12 0V2"/><path d="M6 22h12"/><path d="M12 14v8"/><path d="M8 18h8"/></svg>
+          </div>
+          <h3>Respiradores</h3>
+          <p>Equipos de protección respiratoria de alta calidad para uso médico e industrial, con certificación internacional.</p>
+        </div>
+        <div class="product-card reveal reveal-delay-3">
+          <div class="product-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3>Productos de Colonoterapia</h3>
+          <p>Equipos y accesorios especializados para procedimientos de salud gastrointestinal con tecnología de vanguardia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICACIONES -->
+  <section class="certs" id="certificaciones">
+    <div class="section-inner">
+      <div class="section-label reveal">Legalidad y Calidad</div>
+      <h2 class="section-title reveal">Respaldo y calidad garantizada</h2>
+      <p class="certs-intro reveal">Trabajamos con toda la legalidad del caso. Contamos con los registros y certificaciones necesarios para garantizar la calidad y seguridad de cada producto.</p>
+      <div class="certs-grid">
+        <div class="cert-item reveal reveal-delay-1">
+          <div class="cert-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h4>Registros Sanitarios</h4>
+          <p>Productos registrados</p>
+        </div>
+        <div class="cert-item reveal reveal-delay-2">
+          <div class="cert-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h4>BPA</h4>
+          <p>Buenas Prácticas de Almacenamiento</p>
+        </div>
+        <div class="cert-item reveal reveal-delay-3">
+          <div class="cert-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h4>BPDT</h4>
+          <p>Buenas Prácticas de Distribución y Transporte</p>
+        </div>
+        <div class="cert-item reveal reveal-delay-4">
+          <div class="cert-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h4>BPM</h4>
+          <p>Buenas Prácticas de Manufactura</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section class="team" id="equipo">
+    <div class="section-inner">
+      <div class="section-label reveal">Nuestro Equipo</div>
+      <h2 class="section-title reveal">El equipo detrás de RD Global Trade</h2>
+      <div class="team-grid">
+        <div class="team-card reveal reveal-delay-1">
+          <div class="team-avatar"><span>RR</span></div>
+          <div class="team-info">
+            <h4>Ing. Rosa Ramírez</h4>
+            <div class="role">Gerencia Comercial</div>
+            <div class="email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ff8d908c9ed18d9e92968d9a85bf8d9b9893909d9e938b8d9e9b9ad19c9092">[email&#160;protected]</a>
+            </div>
+          </div>
+        </div>
+        <div class="team-card reveal reveal-delay-2">
+          <div class="team-avatar"><span>HG</span></div>
+          <div class="team-info">
+            <h4>Ing. Hernán Gutiérrez</h4>
+            <div class="role">Área Técnica</div>
+            <div class="email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bed6d9cbcad7dbccccdbc4feccdad9d2d1dcdfd2caccdfdadb90ddd1d3">[email&#160;protected]</a>
+            </div>
+          </div>
+        </div>
+        <div class="team-card reveal reveal-delay-3">
+          <div class="team-avatar"><span>CR</span></div>
+          <div class="team-info">
+            <h4>Ing. César Ramírez</h4>
+            <div class="role">Área Técnica</div>
+            <div class="email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcdfceddd1d5ced9c6fcced8dbd0d3deddd0c8ceddd8d992dfd3d1">[email&#160;protected]</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="asesores-section reveal">
+        <h3>Asesores Estratégicos</h3>
+        <div class="asesores-grid">
+          <div class="asesor-card reveal reveal-delay-1">
+            <h4>QF CAVIMEDIC</h4>
+            <p>Empresa médica endocrinóloga, socio comercial de Abbott. Aliado estratégico en el área de salud y dispositivos médicos.</p>
+          </div>
+          <div class="asesor-card reveal reveal-delay-2">
+            <h4>Dr. Gurú</h4>
+            <p>Asesor especializado que complementa nuestra visión técnica y comercial en el ámbito de productos de salud.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contact" id="contacto">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <div class="section-label">Contacto</div>
+          <h2 class="section-title">¿Le interesa alguno de nuestros productos?</h2>
+          <p>Escríbanos y con gusto le atenderemos. Nuestro equipo puede ayudarle a encontrar la solución que necesita o brindarle más información sobre cualquiera de nuestros productos.</p>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </div>
+            <div>
+              <strong>Email</strong>
+              <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2f5d405c4e015d4e42465d4a556f5d4b4843404d4e435b5d4e4b4a014c4042">[email&#160;protected]</a>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div>
+              <strong>Web</strong>
+              rdglobaltrade.com
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <strong>País</strong>
+              Perú
+            </div>
+          </div>
+        </div>
+        <form class="contact-form reveal reveal-delay-2" onsubmit="event.preventDefault(); alert('Gracias por su mensaje. Nos pondremos en contacto pronto.');">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input type="text" id="nombre" placeholder="Su nombre completo" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="correo@ejemplo.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="asunto">Asunto</label>
+            <input type="text" id="asunto" placeholder="¿En qué podemos ayudarle?">
+          </div>
+          <div class="form-group">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" placeholder="Escriba su mensaje aquí..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Enviar mensaje</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <img src="logo.png" alt="RD Global Trade" class="footer-logo">
+    <p>RD Global Trade — Droguería</p>
+    <p>Importadora de productos especiales y distintivos</p>
+    <div class="footer-divider"></div>
+    <p>&copy; 2025 RD Global Trade. Todos los derechos reservados.</p>
+    <p style="margin-top: 0.5rem;">Lima, Perú</p>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
