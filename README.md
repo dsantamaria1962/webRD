@@ -1,2 +1,0 @@
-# webRD
-Sitio Web RD
