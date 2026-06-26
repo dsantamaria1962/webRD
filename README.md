@@ -20,9 +20,6 @@ Refactor del `index.html` original (todo embebido en un solo archivo). Se separ�
 └── README.md
 ```
 
-## Recurso pendiente que debes colocar
-- `logo.png` → falta. Va en la **raíz** del proyecto (lo usa navbar, footer y favicon). Cópialo del proyecto original.
-
 ## Cambios realizados
 - CSS y JS separados del HTML.
 - Hero (primera página): `Background.png` de fondo + overlay claro para legibilidad del texto.
