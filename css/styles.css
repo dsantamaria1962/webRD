@@ -387,6 +387,46 @@ section { padding: 6rem 2rem; }
   font-size: 0.92rem; color: var(--gray-600); line-height: 1.7;
 }
 
+/* === BROCHURE / QR en card de producto === */
+.product-card--featured {
+  border-color: var(--ice);
+  box-shadow: 0 4px 20px rgba(26,95,168,0.08);
+}
+.product-brochure {
+  margin-top: 1.2rem;
+  display: flex; align-items: center; gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gray-200);
+}
+.product-qr {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  flex-shrink: 0;
+}
+.product-qr img {
+  width: 80px; height: 80px;
+  border: 2px solid var(--gray-200);
+  border-radius: 8px; padding: 3px;
+  background: white;
+}
+.product-qr span {
+  font-size: 0.68rem; color: var(--gray-400);
+  text-align: center; line-height: 1.3;
+}
+.product-download {
+  display: flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--royal), var(--royal-light));
+  color: white; font-size: 0.82rem; font-weight: 600;
+  padding: 0.7rem 1rem; border-radius: 10px;
+  text-decoration: none; flex: 1; justify-content: center;
+  transition: all 0.3s;
+  box-shadow: 0 3px 10px rgba(26,95,168,0.2);
+}
+.product-download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(26,95,168,0.3);
+}
+.product-download svg { width: 16px; height: 16px; flex-shrink: 0; }
+
 /* === CERTIFICATIONS === */
 .certs {
   background: linear-gradient(170deg, #f0f7ff 0%, #ffffff 100%);
