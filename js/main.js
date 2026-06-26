@@ -8,8 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
   /* === Navbar: cambia estilo al hacer scroll === */
   const navbar = document.getElementById('navbar');
   if (navbar) {
+    const heroSection = document.querySelector('.hero');
+    const getThreshold = () => heroSection ? heroSection.offsetHeight * 0.75 : window.innerHeight * 0.75;
     window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 50);
+      navbar.classList.toggle('scrolled', window.scrollY > getThreshold());
     });
   }
 
