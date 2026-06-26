@@ -94,6 +94,7 @@ a { text-decoration: none; color: inherit; }
   width: 24px; height: 2px; background: var(--navy);
   border-radius: 2px; transition: 0.3s;
 }
+.navbar.scrolled .nav-toggle span { background: white; }
 
 /* === HERO === */
 .hero {
@@ -105,24 +106,15 @@ a { text-decoration: none; color: inherit; }
   gap: 1.8rem;
 }
 
-/* Hero: fila inferior — logo + 3 cards en 4 columnas */
+/* Hero: fila inferior — 3 cards */
 .hero-bottom {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 1.2rem;
-  width: 100%; max-width: 1100px;
+  width: 100%; max-width: 860px;
   z-index: 2;
   align-items: stretch;
-}
-.hero-bottom .hero-logo {
-  display: flex; align-items: center; justify-content: center;
-  padding: 0.5rem;
-}
-.hero-bottom .hero-logo img {
-  width: 100%; max-width: 150px;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 12px rgba(26,95,168,0.10));
-  animation: none;
+  align-self: flex-start;
 }
 
 .hero-grid-overlay {
@@ -135,9 +127,65 @@ a { text-decoration: none; color: inherit; }
 
 .hero-content {
   position: relative; z-index: 2;
-  text-align: center; padding: 0 1rem;
-  max-width: 860px;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 2.5rem; align-items: center;
+  padding: 0 1rem;
+  max-width: 1100px; width: 100%;
 }
+.hero-text { text-align: left; }
+.hero-content .hero-logo { margin: 0 0 1.2rem 0; }
+.hero-content .hero-logo img {
+  width: auto; max-width: 180px; height: auto;
+  filter: drop-shadow(0 2px 10px rgba(26,95,168,0.10));
+}
+
+/* Badge Insupen ADVANCE */
+.hero-exclusive {
+  background: linear-gradient(145deg, #0b1e3d 0%, #1a5fa8 100%);
+  border-radius: 20px; padding: 2rem 1.6rem;
+  min-width: 220px; max-width: 260px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(11,30,61,0.18);
+  border: 1px solid rgba(255,255,255,0.1);
+  position: relative; overflow: hidden;
+}
+.hero-exclusive::before {
+  content: ''; position: absolute;
+  top: -40px; right: -40px;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+}
+.hero-excl-tag {
+  display: inline-block;
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gold-light);
+  background: rgba(212,168,67,0.15);
+  border: 1px solid rgba(212,168,67,0.35);
+  border-radius: 20px; padding: 3px 10px; margin-bottom: 1.2rem;
+}
+.hero-excl-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem;
+}
+.hero-excl-icon svg { width: 28px; height: 28px; color: var(--gold-light); }
+.hero-excl-brand {
+  font-family: var(--font-display);
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--white); line-height: 1.15; margin-bottom: 0.8rem;
+}
+.hero-excl-brand span { color: var(--gold-light); font-size: 1.8rem; }
+.hero-excl-desc {
+  font-size: 0.82rem; color: rgba(255,255,255,0.7);
+  line-height: 1.5; margin-bottom: 1.2rem;
+}
+.hero-excl-footer {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 0.75rem; font-weight: 600; color: var(--gold-light);
+  letter-spacing: 0.05em;
+}
+.hero-excl-footer svg { width: 14px; height: 14px; }
 .hero h1 {
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 4vw, 2.8rem);
@@ -149,7 +197,7 @@ a { text-decoration: none; color: inherit; }
 .hero p {
   font-size: clamp(0.9rem, 1.5vw, 1.05rem);
   color: var(--gray-600);
-  max-width: 620px; margin: 0 auto 1.6rem;
+  max-width: 620px; margin: 0 0 1.6rem;
   line-height: 1.7;
   animation: fadeInUp 1s ease-out 0.7s both;
 }
@@ -376,6 +424,13 @@ section { padding: 6rem 2rem; }
 
 /* === EQUIPO === */
 .team { background: #f8fbff; }
+.team-grid-top {
+  display: flex; justify-content: center; flex-wrap: wrap;
+  gap: 1.5rem; margin-bottom: 1.5rem;
+}
+.team-grid-top .team-card {
+  flex: 0 1 360px;
+}
 .team-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem; margin-bottom: 3rem;
@@ -663,7 +718,7 @@ section { padding: 6rem 2rem; }
   .nav-links.open {
     display: flex; flex-direction: column;
     position: absolute; top: 100%; left: 0; width: 100%;
-    background: rgba(255,255,255,0.98);
+    background: linear-gradient(90deg, #ffffff 0%, #1a5fa8 100%);
     padding: 1.5rem 2rem; gap: 1.2rem;
     backdrop-filter: blur(20px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.08);
@@ -672,6 +727,7 @@ section { padding: 6rem 2rem; }
   .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
   .form-row { grid-template-columns: 1fr; }
   section { padding: 4rem 1.5rem; }
+  .hero-content { grid-template-columns: 1fr; }
+  .hero-exclusive { max-width: 100%; min-width: unset; }
   .hero-bottom { grid-template-columns: 1fr 1fr; }
-  .hero-bottom .hero-logo { display: none; }
 }
